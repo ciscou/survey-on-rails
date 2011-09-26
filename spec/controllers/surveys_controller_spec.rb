@@ -50,7 +50,6 @@ describe SurveysController do
   end
 
   it "destroy action should destroy model and redirect to index action" do
-    survey = survey
     delete :destroy, :id => survey
     response.should redirect_to(surveys_url)
     Survey.exists?(survey.id).should be_false
