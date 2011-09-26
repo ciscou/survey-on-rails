@@ -1,57 +1,53 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe QuestionsController do
-  fixtures :all
   render_views
 
-  it "index action should render index template" do
-    get :index
-    response.should render_template(:index)
-  end
+  let(:survey)   { Factory :survey }
+  let(:question) { Factory :question, :survey => survey }
 
   it "show action should render show template" do
-    get :show, :id => Question.first
+    get :show, :survey_id => survey, :id => question
     response.should render_template(:show)
   end
 
   it "new action should render new template" do
-    get :new
+    get :new, :survey_id => survey
     response.should render_template(:new)
   end
 
   it "create action should render new template when model is invalid" do
     Question.any_instance.stubs(:valid?).returns(false)
-    post :create
+    post :create, :survey_id => survey
     response.should render_template(:new)
   end
 
   it "create action should redirect when model is valid" do
     Question.any_instance.stubs(:valid?).returns(true)
-    post :create
-    response.should redirect_to(question_url(assigns[:question]))
+    post :create, :survey_id => survey
+    response.should redirect_to(survey_question_url(survey, assigns[:question]))
   end
 
   it "edit action should render edit template" do
-    get :edit, :id => Question.first
+    get :edit, :survey_id => survey, :id => question
     response.should render_template(:edit)
   end
 
   it "update action should render edit template when model is invalid" do
     Question.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => Question.first
+    put :update, :survey_id => survey, :id => question
     response.should render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
     Question.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => Question.first
-    response.should redirect_to(question_url(assigns[:question]))
+    put :update, :survey_id => survey, :id => question
+    response.should redirect_to(survey_question_url(survey, assigns[:question]))
   end
 
   it "destroy action should destroy model and redirect to index action" do
-    question = Question.first
-    delete :destroy, :id => question
-    response.should redirect_to(questions_url)
+    delete :destroy, :survey_id => survey, :id => question
+    response.should redirect_to(survey)
     Question.exists?(question.id).should be_false
   end
 end

@@ -1,8 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe SurveysController do
-  fixtures :all
   render_views
+
+  let(:survey) { Factory :survey }
 
   it "index action should render index template" do
     get :index
@@ -10,7 +11,7 @@ describe SurveysController do
   end
 
   it "show action should render show template" do
-    get :show, :id => Survey.first
+    get :show, :id => survey
     response.should render_template(:show)
   end
 
@@ -32,24 +33,24 @@ describe SurveysController do
   end
 
   it "edit action should render edit template" do
-    get :edit, :id => Survey.first
+    get :edit, :id => survey
     response.should render_template(:edit)
   end
 
   it "update action should render edit template when model is invalid" do
     Survey.any_instance.stubs(:valid?).returns(false)
-    put :update, :id => Survey.first
+    put :update, :id => survey
     response.should render_template(:edit)
   end
 
   it "update action should redirect when model is valid" do
     Survey.any_instance.stubs(:valid?).returns(true)
-    put :update, :id => Survey.first
+    put :update, :id => survey
     response.should redirect_to(survey_url(assigns[:survey]))
   end
 
   it "destroy action should destroy model and redirect to index action" do
-    survey = Survey.first
+    survey = survey
     delete :destroy, :id => survey
     response.should redirect_to(surveys_url)
     Survey.exists?(survey.id).should be_false
