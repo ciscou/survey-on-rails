@@ -8,8 +8,17 @@
   <strong>Description:</strong>
   <%= @survey.description %>
 </p>
+<p>
+  <strong>Questions:</strong>
+  <ul>
+    <% @survey.questions.each do |question| %>
+      <li><%= question.question %></li>
+    <% end %>
+  </ul>
+</p>
 
 <p>
+  <%= link_to "Add a question", new_survey_question_path(@survey) %> |
   <%= link_to "Edit", edit_survey_path(@survey) %> |
   <%= link_to "Destroy", @survey, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", surveys_path %>

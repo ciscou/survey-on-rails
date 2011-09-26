@@ -1,5 +1,7 @@
 SurveyOnRails::Application.routes.draw do
-  resources :surveys
+  resources :surveys do
+    resources :questions
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
