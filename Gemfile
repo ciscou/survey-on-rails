@@ -33,8 +33,10 @@ group :test do
   gem 'turn', :require => false
   gem 'rspec-rails'
   gem 'steak'
+  gem 'launchy'
 end
 
 group :development do
   gem 'nifty-generators'
 end
+gem "mocha", :group => :test
