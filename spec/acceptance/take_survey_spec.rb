@@ -8,22 +8,30 @@ feature 'Take survey', %q{
 
   background do
     @survey = Factory :survey
-    3.times { Factory :question, :survey => @survey }
+  end
+
+  scenario "Survey with no questions" do
+    visit survey_url @survey
+    page.should have_no_link "Take survey!"
   end
 
   scenario 'Basic survey with 3 questions' do
+    answers = 3.times.map do
+      question = Factory :question, :survey => @survey
+      Factory.build :answer, :question => question
+    end
+
     visit survey_url @survey
     click_link "Take survey!"
 
-    answers = 3.times.map { Faker::Lorem.sentence }
     answers.each do |answer|
-      fill_in "Answer", :with => answer
+      fill_in "Answer", :with => answer.answer
       click_button "Create Answer"
     end
 
     page.should have_content "Thank you for taking this survey!"
     answers.each do |answer|
-      page.should have_content answer
+      page.should have_content answer.answer
     end
   end
 
