@@ -25,7 +25,7 @@ feature 'Take survey', %q{
     click_link "Take survey!"
 
     answers.each do |answer|
-      fill_in "Answer", :with => answer.answer
+      fill_in answer.question.question, :with => answer.answer
       click_button "Create Answer"
     end
 
