@@ -36,7 +36,6 @@ group :test do
   gem 'ffaker'
   gem 'steak'
   gem 'launchy'
-  gem 'mocha'
   gem 'spork'
   gem 'database_cleaner'
 end
