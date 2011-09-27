@@ -27,7 +27,7 @@ describe QuestionsController do
   it "create action should redirect when model is valid" do
     Question.any_instance.should_receive(:valid?).and_return(true)
     post :create, :survey_id => @survey
-    response.should redirect_to(survey_question_url(@survey, assigns[:question]))
+    response.should redirect_to(@survey)
   end
 
   it "edit action should render edit template" do

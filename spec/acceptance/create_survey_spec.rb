@@ -27,10 +27,8 @@ feature 'Create survey', %q{
     questions = 3.times.map { Factory.build :question, :survey => survey }
 
     questions.each do |question|
-      click_link "Add a question"
       fill_in "Question", :with => question.question
       click_button "Create Question"
-      click_link "Back to survey"
     end
 
     page.should have_content survey.name
