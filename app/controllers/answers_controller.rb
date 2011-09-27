@@ -1,14 +1,6 @@
 class AnswersController < ApplicationController
   before_filter :load_question
 
-  def index
-    @answers = Answer.all
-  end
-
-  def show
-    @answer = Answer.find(params[:id])
-  end
-
   def new
     @answer = @question.answers.new
   end
@@ -33,12 +25,6 @@ class AnswersController < ApplicationController
     else
       render :action => 'edit'
     end
-  end
-
-  def destroy
-    @answer = Answer.find(params[:id])
-    @answer.destroy
-    redirect_to answers_url, :notice => "Successfully destroyed answer."
   end
 
   private

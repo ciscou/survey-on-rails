@@ -14,12 +14,12 @@
     <% @survey.questions.each do |question| %>
       <li><%= question.question %> (<%= question.answers.first.try(:answer) || "-" %>)</li>
     <% end %>
-    <li><%= @question = Question.new(:survey => @survey) ; render "questions/form" %></li>
+    <li><%= render "questions/form" %></li>
   </ul>
 </p>
 
 <p>
-  <% if first_question = @survey.questions.first %>
+  <% if (first_question = @survey.questions.first) && first_question.persisted? %>
     <%= link_to "Take survey!", new_or_edit_question_answer_path(first_question) %> |
   <% end %>
   <%= link_to "Edit", edit_survey_path(@survey) %> |
