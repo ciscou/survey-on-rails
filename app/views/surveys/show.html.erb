@@ -13,11 +13,19 @@
   <ul>
     <% @survey.questions.each do |question| %>
       <li><%= question.question %></li>
+      <ul>
+        <% question.answers.each do |answer| %>
+          <li><%= answer.answer %></li>
+        <% end %>
+      </ul>
     <% end %>
   </ul>
 </p>
 
 <p>
+  <% if @survey.questions.any? %>
+    <%= link_to "Take survey!", new_question_answer_path(@survey.questions.first) %> |
+  <% end %>
   <%= link_to "Add a question", new_survey_question_path(@survey) %> |
   <%= link_to "Edit", edit_survey_path(@survey) %> |
   <%= link_to "Destroy", @survey, :confirm => 'Are you sure?', :method => :delete %> |
