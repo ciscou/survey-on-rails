@@ -36,9 +36,10 @@ group :test do
   gem 'ffaker'
   gem 'steak'
   gem 'launchy'
+  gem 'mocha'
+  gem 'spork'
 end
 
 group :development do
   gem 'nifty-generators'
 end
-gem "mocha", :group => :test
