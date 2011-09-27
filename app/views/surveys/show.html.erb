@@ -23,8 +23,8 @@
 </p>
 
 <p>
-  <% if @survey.questions.any? %>
-    <%= link_to "Take survey!", new_question_answer_path(@survey.questions.first) %> |
+  <% if first_question = @survey.questions.first %>
+    <%= link_to "Take survey!", new_or_edit_question_answer_path(first_question) %> |
   <% end %>
   <%= link_to "Add a question", new_survey_question_path(@survey) %> |
   <%= link_to "Edit", edit_survey_path(@survey) %> |

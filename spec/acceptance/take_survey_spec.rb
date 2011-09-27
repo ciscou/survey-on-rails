@@ -35,4 +35,32 @@ feature 'Take survey', %q{
     end
   end
 
+  scenario 'Basic survey with 3 questions that is already taken' do
+    answers = 3.times.map do
+      question = Factory :question, :survey => @survey
+      Factory.build :answer, :question => question
+    end
+
+    visit survey_url @survey
+    click_link "Take survey!"
+
+    answers.each do |answer|
+      fill_in answer.question.question, :with => "old #{answer.answer}"
+      click_button "Create Answer"
+    end
+
+    visit survey_url @survey
+    click_link "Take survey!"
+
+    answers.each do |answer|
+      fill_in answer.question.question, :with => "new #{answer.answer}"
+      click_button "Update Answer"
+    end
+
+    page.should have_content "Thank you for taking this survey!"
+    answers.each do |answer|
+      page.should have_content    "new #{answer.answer}"
+      page.should have_no_content "old #{answer.answer}"
+    end
+  end
 end
