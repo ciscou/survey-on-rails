@@ -27,7 +27,7 @@ feature 'Create survey', %q{
     questions = 3.times.map { Factory.build :question, :survey => survey }
 
     questions.each do |question|
-      fill_in "Question", :with => question.question
+      fill_in "Add a question", :with => question.question
       click_button "Create Question"
     end
 

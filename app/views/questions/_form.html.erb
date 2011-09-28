@@ -1,7 +1,7 @@
-<%= form_for [@survey, @question] do |f| %>
+<%= form_for [@survey, @question || Question.new] do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :question %><br />
+    <%= f.label :question, "Add a question" %><br />
     <%= f.text_field :question %>
   </p>
   <p><%= f.submit %></p>
